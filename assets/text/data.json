@@ -1,0 +1,14 @@
+[
+  {
+    "name": "喝水任務",
+    "unit": "杯",
+    "total": 8,
+    "completed": 3
+  },
+  {
+    "name": "跳繩",
+    "unit": "下",
+    "total": 1000,
+    "completed": 220
+  }
+]
