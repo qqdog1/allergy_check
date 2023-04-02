@@ -26,7 +26,7 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      isConfigured = prefs.getBool('isConfigured');
+      isConfigured = prefs.getBool('isConfigured') ?? false;
     });
   }
 
