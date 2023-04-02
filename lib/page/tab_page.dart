@@ -27,6 +27,9 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isConfigured = prefs.getBool('isConfigured') ?? false;
+      if (!isConfigured) {
+        _currentIndex = 2;
+      }
     });
   }
 
