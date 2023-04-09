@@ -45,6 +45,21 @@ class _SettingsPage extends State<SettingsPage>
           ),
         ],
       ),
+      body: Stack(
+        children: [
+          // Add your main content widgets here
+          Positioned(
+            bottom: 20.0, // Adjust the values as per your requirements
+            right: 20.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                // Handle the button press event here
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -55,7 +70,7 @@ class _SettingsPage extends State<SettingsPage>
       builder: (BuildContext context) => AlertDialog(
         content: const Text('這裡可以設定已知過敏原，\n'
             '複雜設定:\n'
-            '一次帶入APP預設200多項過敏原\n'
+            '一次設定APP內建200多項過敏原\n'
             '簡易設定:\n'
             '自行逐一新增過敏原'),
         actions: [

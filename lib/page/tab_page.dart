@@ -41,8 +41,8 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
 
   final List<BottomNavigationBarItem> _navItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-    const BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: ''),
-    const BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.edit), label: ''),
   ];
 
   @override
