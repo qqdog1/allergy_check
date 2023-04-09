@@ -7,7 +7,7 @@ class FilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('搜尋過敏原設定'),
+        title: const Text('搜尋過敏原'),
       ),
     );
   }

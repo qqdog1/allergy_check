@@ -1,3 +1,5 @@
+import '../const/AllergenLevel.dart';
+
 class DetailedAllergen {
   List<TypeAllergen> lst;
 
@@ -13,7 +15,7 @@ class TypeAllergen {
 
 class Allergen {
   String name;
-  int score;
+  AllergenLevel allergenLevel;
 
-  Allergen(this.name, this.score);
+  Allergen(this.name, this.allergenLevel);
 }
