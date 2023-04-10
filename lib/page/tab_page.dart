@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:allergy_check/dto/user_settings.dart';
 import 'package:allergy_check/page/settings_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'filter_page.dart';
@@ -17,7 +18,6 @@ class TabPage extends StatefulWidget {
 
 class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
-  bool isConfigured = false;
 
   @override
   void initState() {
@@ -29,13 +29,18 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
     WidgetsFlutterBinding.ensureInitialized();
     final directory = await getApplicationSupportDirectory();
     final file = File('${directory.path}/settings.txt');
-    final contents = await file.readAsString();
+    UserSettings userSettings;
+    if (await file.exists()) {
+      final content = await file.readAsString();
+      Map<String, dynamic> jsonMap = jsonDecode(content);
+      userSettings = UserSettings(jsonMap['isConfigured'] ?? false, jsonMap['isSettingsPage'] ?? false, jsonMap['isFoodSearchPage'] ?? false, jsonMap['isFilterPage'] ?? false);
+    } else {
+      userSettings = UserSettings(false, false, false, false);
+      await file.writeAsString(userSettings.toString());
+    }
 
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      isConfigured = prefs.getBool('isConfigured') ?? false;
-      if (!isConfigured) {
+      if (!userSettings.isConfigured) {
         _currentIndex = 2;
       }
     });
