@@ -1,16 +1,8 @@
 # allergy_check
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+l10n 大失敗 [x]
+logo強制看X秒最多看Y中間可點擊跳過 [v]
+分頁 [v]
+讀寫檔使用ApplicationSupportDirectory [v]
+popup [v]
+標題附加icon點擊可開popup [v]

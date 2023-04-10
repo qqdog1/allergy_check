@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path_provider: ^2.0.14
   intl: ^0.18.0
   intl_translation: ^0.18.0
 

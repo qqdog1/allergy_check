@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:allergy_check/page/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'filter_page.dart';
 import 'food_search_page.dart';
@@ -24,6 +27,11 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
 
   Future<void> initSharedPreferences() async {
     WidgetsFlutterBinding.ensureInitialized();
+    final directory = await getApplicationSupportDirectory();
+    final file = File('${directory.path}/settings.txt');
+    final contents = await file.readAsString();
+
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isConfigured = prefs.getBool('isConfigured') ?? false;
