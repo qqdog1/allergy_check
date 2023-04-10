@@ -8,3 +8,4 @@
 - [x] popup  
 - [x] 標題附加icon點擊可開popup  
 - [x] json encode, decode
+- [x] 寫了一個可能有問題的singleton cache,我在要cache的物件上加了late

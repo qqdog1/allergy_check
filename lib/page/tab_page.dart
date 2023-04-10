@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:allergy_check/dto/user_settings.dart';
 import 'package:allergy_check/page/settings_page.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
+import '../cache/user_settings_cache.dart';
 import 'filter_page.dart';
 import 'food_search_page.dart';
 
@@ -22,22 +19,12 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    initSharedPreferences();
+    initUserSettings();
   }
 
-  Future<void> initSharedPreferences() async {
+  Future<void> initUserSettings() async {
     WidgetsFlutterBinding.ensureInitialized();
-    final directory = await getApplicationSupportDirectory();
-    final file = File('${directory.path}/settings.txt');
-    UserSettings userSettings;
-    if (await file.exists()) {
-      final content = await file.readAsString();
-      Map<String, dynamic> jsonMap = jsonDecode(content);
-      userSettings = UserSettings(jsonMap['isConfigured'] ?? false, jsonMap['isSettingsPage'] ?? false, jsonMap['isFoodSearchPage'] ?? false, jsonMap['isFilterPage'] ?? false);
-    } else {
-      userSettings = UserSettings(false, false, false, false);
-      await file.writeAsString(userSettings.toString());
-    }
+    UserSettings userSettings = UserSettingsCache.instance.userSettings;
 
     setState(() {
       if (!userSettings.isConfigured) {

@@ -1,7 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../cache/user_settings_cache.dart';
+import '../dto/user_settings.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -10,23 +10,21 @@ class SettingsPage extends StatefulWidget {
   _SettingsPage createState() => _SettingsPage();
 }
 
-class _SettingsPage extends State<SettingsPage>
-    with SingleTickerProviderStateMixin {
-  bool isSet = false;
-
+class _SettingsPage extends State<SettingsPage> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    initSharedPreferences();
+    initUserSettings();
   }
 
-  Future<void> initSharedPreferences() async {
+  Future<void> initUserSettings() async {
     WidgetsFlutterBinding.ensureInitialized();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    UserSettings userSettings = UserSettingsCache.instance.userSettings;
+
     setState(() {
-      isSet = prefs.getBool('isSet') ?? false;
-      if (!isSet) {
+      if (!userSettings.isSettingsPage) {
         showPopup(context);
+        UserSettingsCache.instance.setSettingsPage(true);
       }
     });
   }

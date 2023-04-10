@@ -12,6 +12,12 @@ class UserSettings {
 
   UserSettings(this.isConfigured, this.isSettingsPage, this.isFoodSearchPage, this.isFilterPage);
 
+  set isConfigured(bool value) => isConfigured = value;
+  set isSettingsPage(bool value) => isSettingsPage = value;
+  set isFoodSearchPage(bool value) => isFoodSearchPage = value;
+  set isFilterPage(bool value) => isFilterPage = value;
+
+
   Map<String, dynamic> toJson() {
     return {
       'isConfigured': isConfigured,
