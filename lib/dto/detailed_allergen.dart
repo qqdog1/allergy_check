@@ -1,4 +1,4 @@
-import '../const/AllergenLevel.dart';
+import '../const/allergen_level.dart';
 
 class DetailedAllergen {
   List<TypeAllergen> lst;
