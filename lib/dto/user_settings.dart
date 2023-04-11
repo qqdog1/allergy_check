@@ -2,21 +2,15 @@ import 'dart:convert';
 
 class UserSettings {
   // 使用者是否已經設定過過敏原
-  final bool isConfigured;
+  bool isConfigured;
   // 使用者是否已經開過設定畫面顯示過popup
-  final bool isSettingsPage;
+  bool isSettingsPage;
   // 使用者是否已經開過可能過敏原畫面顯示過popup
-  final bool isFoodSearchPage;
+  bool isFoodSearchPage;
   // 使用者是否已經開過搜尋過敏原畫面顯示過popup
-  final bool isFilterPage;
+  bool isFilterPage;
 
   UserSettings(this.isConfigured, this.isSettingsPage, this.isFoodSearchPage, this.isFilterPage);
-
-  set isConfigured(bool value) => isConfigured = value;
-  set isSettingsPage(bool value) => isSettingsPage = value;
-  set isFoodSearchPage(bool value) => isFoodSearchPage = value;
-  set isFilterPage(bool value) => isFilterPage = value;
-
 
   Map<String, dynamic> toJson() {
     return {

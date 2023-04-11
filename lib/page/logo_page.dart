@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:allergy_check/cache/user_settings_cache.dart';
 import 'package:allergy_check/page/tab_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _LogoPageState extends State<LogoPage> {
   @override
   void initState() {
     super.initState();
+    UserSettingsCache.instance;
     // 启动一个定时器，延迟5秒后自动跳转到下一页
     _timer = Timer(const Duration(seconds: 1), () {
       _canNavigate = true;

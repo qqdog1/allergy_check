@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../cache/user_settings_cache.dart';
 import '../dto/user_settings.dart';
@@ -11,22 +12,23 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPage extends State<SettingsPage> with SingleTickerProviderStateMixin {
+  UserSettingsCache userSettingsCache = UserSettingsCache.instance;
+
   @override
   void initState() {
     super.initState();
-    initUserSettings();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      initUserSettings();
+    });
   }
 
   Future<void> initUserSettings() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    UserSettings userSettings = UserSettingsCache.instance.userSettings;
+    UserSettings userSettings = userSettingsCache.userSettings;
 
-    setState(() {
-      if (!userSettings.isSettingsPage) {
-        showPopup(context);
-        UserSettingsCache.instance.setSettingsPage(true);
-      }
-    });
+    if (!userSettings.isSettingsPage) {
+      userSettingsCache.setSettingsPage(true);
+      showPopup();
+    }
   }
 
   @override
@@ -37,7 +39,7 @@ class _SettingsPage extends State<SettingsPage> with SingleTickerProviderStateMi
         actions: [
           IconButton(
             onPressed: () {
-              showPopup(context);
+              showPopup();
             },
             icon: const Icon(Icons.question_mark_sharp),
           ),
@@ -61,7 +63,7 @@ class _SettingsPage extends State<SettingsPage> with SingleTickerProviderStateMi
     );
   }
 
-  Future<void> showPopup(BuildContext context) {
+  Future<void> showPopup() {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
