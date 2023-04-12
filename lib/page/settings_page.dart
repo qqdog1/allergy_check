@@ -139,10 +139,9 @@ class _SettingsPage extends State<SettingsPage>
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         content: const Text('這裡可以設定已知過敏原，\n'
-            '複雜設定:\n'
-            '一次設定APP內建200多項過敏原\n'
-            '簡易設定:\n'
-            '自行逐一新增過敏原'),
+            '可使用套用模板，\n'
+            '一次設定APP內建200多項過敏原，\n'
+            '或自行逐一新增過敏原。'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

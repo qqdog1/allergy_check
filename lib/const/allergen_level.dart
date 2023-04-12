@@ -2,7 +2,7 @@ enum AllergenLevel {
 //  輕微：Mild
 //  中等：Moderate
 //  嚴重：Severe
-//  極度嚴重：Very severe
+//  危險：Very severe
   mild, moderate, severe, verySevere
 }
 
