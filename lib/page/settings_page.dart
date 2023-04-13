@@ -49,70 +49,49 @@ class _SettingsPage extends State<SettingsPage>
       ),
       body: Stack(
         children: [
-          // Add your main content widgets here
-            Positioned(
-              bottom: 20.0, // Adjust the values as per your requirements
-              right: 20.0,
-              child: Visibility(
-                visible: !_showPlus,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _showPlus = true;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+          Positioned(
+            bottom: 20.0, // Adjust the values as per your requirements
+            right: 20.0,
+            child: Visibility(
+              visible: !_showPlus,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _showPlus = true;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Text('新增一個過敏原'),
                 ),
+                child: const Text('套用模板'),
               ),
             ),
-            Positioned(
-              bottom: 70.0, // Adjust the values as per your requirements
-              right: 20.0,
-              child: Visibility(
-                visible: !_showPlus,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _showPlus = true;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+          ),
+          Positioned(
+            bottom: 70.0, // Adjust the values as per your requirements
+            right: 20.0,
+            child: Visibility(
+              visible: !_showPlus,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _showPlus = true;
+                  });
+                  // 如果有資料跳confirm
+                  // 沒資料當他沒按
+                  showDeleteConfirm();
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Text('套用模板'),
                 ),
+                child: const Text('清除全部'),
               ),
             ),
-            Positioned(
-              bottom: 120.0, // Adjust the values as per your requirements
-              right: 20.0,
-              child: Visibility(
-                visible: !_showPlus,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _showPlus = true;
-                    });
-                    // 如果有資料跳confirm
-                    // 沒資料當他沒按
-                    showDeleteConfirm();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text('清除全部'),
-                ),
-              ),
-            ),
+          ),
           Positioned(
             bottom: 20.0, // Adjust the values as per your requirements
             right: 20.0,
@@ -164,6 +143,9 @@ class _SettingsPage extends State<SettingsPage>
             child: const Text('確定'),
           ),
           TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red, // 設置文字顏色
+            ),
             onPressed: () => Navigator.pop(context),
             child: const Text('取消'),
           ),
