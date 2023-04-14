@@ -11,6 +11,13 @@ class SettingsPage extends StatefulWidget {
   _SettingsPage createState() => _SettingsPage();
 }
 
+class Allergen {
+  final String name;
+  final String severity;
+
+  const Allergen(this.name, this.severity);
+}
+
 class _SettingsPage extends State<SettingsPage>
     with SingleTickerProviderStateMixin {
   UserSettingsCache userSettingsCache = UserSettingsCache.instance;
@@ -33,6 +40,19 @@ class _SettingsPage extends State<SettingsPage>
     }
   }
 
+  String searchQuery = '';
+
+  final List<Allergen> allergens = [
+    Allergen('花生', '嚴重'),
+    Allergen('葡萄', '輕微'),
+  ];
+
+  List<Allergen> get filteredAllergens {
+    return allergens.where((allergen) {
+      return allergen.name.toLowerCase().contains(searchQuery.toLowerCase());
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +66,32 @@ class _SettingsPage extends State<SettingsPage>
             icon: const Icon(Icons.question_mark_sharp),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48.0),
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: '搜尋過敏原',
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // 執行查詢
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       body: Stack(
         children: [
