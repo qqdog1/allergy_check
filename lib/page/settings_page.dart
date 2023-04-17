@@ -36,11 +36,14 @@ class _SettingsPage extends State<SettingsPage>
 
     if (!userSettings.isSettingsPage) {
       userSettingsCache.setSettingsPage(true);
-      showPopup();
+      showQuestionPopup();
     }
   }
 
+  final TextEditingController _textEditingController = TextEditingController();
+
   String searchQuery = '';
+  String dropdownValue = '輕微';
 
   final List<Allergen> allergens = [
     Allergen('花生', '嚴重'),
@@ -61,7 +64,7 @@ class _SettingsPage extends State<SettingsPage>
         actions: [
           IconButton(
             onPressed: () {
-              showPopup();
+              showQuestionPopup();
             },
             icon: const Icon(Icons.question_mark_sharp),
           ),
@@ -74,18 +77,36 @@ class _SettingsPage extends State<SettingsPage>
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
-                        hintText: '搜尋過敏原',
+                      controller: _textEditingController,
+                      decoration: const InputDecoration(
+                        hintText: '搜尋或新增過敏原',
                       ),
                     ),
+                  ),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.arrow_drop_down),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>['輕微', '中等', '嚴重', '危險']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   IconButton(
                     onPressed: () {
                       // 執行查詢
+                      print('${_textEditingController.text}, $dropdownValue');
                     },
-                    icon: const Icon(Icons.search),
+                    icon: const Icon(Icons.edit),
                   ),
                 ],
               ),
@@ -96,7 +117,7 @@ class _SettingsPage extends State<SettingsPage>
       body: Stack(
         children: [
           Positioned(
-            bottom: 20.0, // Adjust the values as per your requirements
+            bottom: 70.0, // Adjust the values as per your requirements
             right: 20.0,
             child: Visibility(
               visible: !_showPlus,
@@ -116,7 +137,7 @@ class _SettingsPage extends State<SettingsPage>
             ),
           ),
           Positioned(
-            bottom: 70.0, // Adjust the values as per your requirements
+            bottom: 120.0, // Adjust the values as per your requirements
             right: 20.0,
             child: Visibility(
               visible: !_showPlus,
@@ -158,7 +179,7 @@ class _SettingsPage extends State<SettingsPage>
     );
   }
 
-  Future<void> showPopup() {
+  Future<void> showQuestionPopup() {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
