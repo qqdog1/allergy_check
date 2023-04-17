@@ -1,6 +1,8 @@
+import 'package:allergy_check/dto/user_allergen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../cache/allergen_cache.dart';
 import '../cache/user_settings_cache.dart';
 import '../dto/user_settings.dart';
 
@@ -104,7 +106,7 @@ class _SettingsPage extends State<SettingsPage>
                   IconButton(
                     onPressed: () {
                       // 執行查詢
-                      print('${_textEditingController.text}, $dropdownValue');
+                      addNewAllergen();
                     },
                     icon: const Icon(Icons.edit),
                   ),
@@ -219,5 +221,10 @@ class _SettingsPage extends State<SettingsPage>
         ],
       ),
     );
+  }
+
+  Future<void> addNewAllergen() async {
+    UserAllergen userAllergen = UserAllergen(_textEditingController.text, dropdownValue);
+    AllergenCache.instance.upsert(userAllergen);
   }
 }
