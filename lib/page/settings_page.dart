@@ -113,22 +113,23 @@ class _SettingsPage extends State<SettingsPage>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      width: 50.0,
-                      child: Text(allergenCache.lst[index].allergyLevel)
-                      ),
-                    IconButton(icon: const Icon(Icons.delete_outline), onPressed: () {
-                      // delete
-                      setState(() {
-                        allergenCache.delete(allergenCache.lst[index]);
-                      });
-                    }),
+                        width: 50.0,
+                        child: Text(allergenCache.lst[index].allergyLevel)),
+                    IconButton(
+                        icon: const Icon(Icons.delete_outline),
+                        onPressed: () {
+                          // delete
+                          setState(() {
+                            allergenCache.delete(allergenCache.lst[index]);
+                          });
+                        }),
                   ],
                 ),
               );
             },
           ),
           Positioned(
-            bottom: 70.0, // Adjust the values as per your requirements
+            bottom: 20.0, // Adjust the values as per your requirements
             right: 20.0,
             child: Visibility(
               visible: !_showPlus,
@@ -148,7 +149,7 @@ class _SettingsPage extends State<SettingsPage>
             ),
           ),
           Positioned(
-            bottom: 120.0, // Adjust the values as per your requirements
+            bottom: 70.0, // Adjust the values as per your requirements
             right: 20.0,
             child: Visibility(
               visible: !_showPlus,
@@ -201,7 +202,9 @@ class _SettingsPage extends State<SettingsPage>
             '或自行逐一新增過敏原。'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('確定'),
           ),
         ],
@@ -217,7 +220,12 @@ class _SettingsPage extends State<SettingsPage>
         content: const Text('確定要刪除所有資料??'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              setState(() {
+                Navigator.pop(context);
+                allergenCache.clearAll();
+              });
+            },
             child: const Text('確定'),
           ),
           TextButton(

@@ -51,6 +51,12 @@ class AllergenCache {
     _write();
   }
 
+  void clearAll() {
+    map.clear();
+    lst.clear();
+    _write();
+  }
+
   Future<void> _write() async {
     final directory = await getApplicationSupportDirectory();
     final file = File('${directory.path}/$fileName');
