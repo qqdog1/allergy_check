@@ -9,10 +9,6 @@ class AllergyCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      supportedLocales: [
-        Locale('en'),
-        Locale('zh')
-      ],
       home: LogoPage(),
     );
   }

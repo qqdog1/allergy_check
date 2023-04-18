@@ -25,6 +25,7 @@ class _SettingsPage extends State<SettingsPage>
     SchedulerBinding.instance.addPostFrameCallback((_) {
       initUserSettings();
     });
+    lstShowingAllergen = AllergenCache.instance.lst;
   }
 
   Future<void> initUserSettings() async {
@@ -38,7 +39,8 @@ class _SettingsPage extends State<SettingsPage>
 
   final TextEditingController _textEditingController = TextEditingController();
 
-  String searchQuery = '';
+  List<UserAllergen> lstShowingAllergen = [];
+  String _query = '';
   String dropdownValue = '輕微';
 
   @override
@@ -65,6 +67,12 @@ class _SettingsPage extends State<SettingsPage>
                   Expanded(
                     child: TextField(
                       controller: _textEditingController,
+                      onChanged: (value) {
+                        _query = value;
+                        setState(() {
+                          filterList();
+                        });
+                      },
                       decoration: const InputDecoration(
                         hintText: '搜尋或新增過敏原',
                       ),
@@ -91,6 +99,7 @@ class _SettingsPage extends State<SettingsPage>
                       // 執行查詢
                       setState(() {
                         addNewAllergen();
+                        filterList();
                       });
                     },
                     icon: const Icon(Icons.edit),
@@ -105,22 +114,23 @@ class _SettingsPage extends State<SettingsPage>
         children: [
           ListView.separated(
             separatorBuilder: (context, index) => const Divider(thickness: 2),
-            itemCount: allergenCache.lst.length,
+            itemCount: lstShowingAllergen.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(allergenCache.lst[index].name),
+                title: Text(lstShowingAllergen[index].name),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                         width: 50.0,
-                        child: Text(allergenCache.lst[index].allergyLevel)),
+                        child: Text(lstShowingAllergen[index].allergyLevel)),
                     IconButton(
                         icon: const Icon(Icons.delete_outline),
                         onPressed: () {
                           // delete
                           setState(() {
-                            allergenCache.delete(allergenCache.lst[index]);
+                            allergenCache.delete(lstShowingAllergen[index]);
+                            filterList();
                           });
                         }),
                   ],
@@ -224,6 +234,7 @@ class _SettingsPage extends State<SettingsPage>
               setState(() {
                 Navigator.pop(context);
                 allergenCache.clearAll();
+                filterList();
               });
             },
             child: const Text('確定'),
@@ -244,5 +255,14 @@ class _SettingsPage extends State<SettingsPage>
     UserAllergen userAllergen =
         UserAllergen(_textEditingController.text, dropdownValue);
     AllergenCache.instance.upsert(userAllergen);
+  }
+
+  Future<void> filterList() async {
+    lstShowingAllergen = [];
+    for (UserAllergen userAllergen in AllergenCache.instance.lst) {
+      if (userAllergen.name.contains(_query)) {
+        lstShowingAllergen.add(userAllergen);
+      }
+    }
   }
 }
