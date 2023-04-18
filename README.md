@@ -15,6 +15,8 @@
 - [x] TextField and TextEditingController
 - [x] DropdownButton
 - [x] ListView
+- [ ] 放廣告
+- [ ] 上架
 
 
 
