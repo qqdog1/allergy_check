@@ -2,7 +2,7 @@
 
 - [ ] l10n 大失敗  
 - [ ] 換splash screen 大失敗
-- [ ] 換application icon
+- [ ] 換application icon 微失敗 手機上splash screen沒變
 - [x] logo強制看X秒最多看Y中間可點擊跳過  
 - [x] 分頁  
 - [x] ApplicationSupportDirectory 
