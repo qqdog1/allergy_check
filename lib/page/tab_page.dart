@@ -3,7 +3,7 @@ import 'package:allergy_check/page/settings_page.dart';
 import 'package:flutter/material.dart';
 
 import '../cache/user_settings_cache.dart';
-import 'filter_page.dart';
+import 'diary_page.dart';
 import 'food_search_page.dart';
 
 class TabPage extends StatefulWidget {
@@ -34,13 +34,13 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
   }
 
   final List<Widget> _pages = [
-    const FilterPage(),
+    const DiaryPage(),
     const FoodSearchPage(),
     const SettingsPage(),
   ];
 
   final List<BottomNavigationBarItem> _navItems = [
-    const BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.edit), label: ''),
   ];

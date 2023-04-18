@@ -13,16 +13,10 @@ class SettingsPage extends StatefulWidget {
   _SettingsPage createState() => _SettingsPage();
 }
 
-class Allergen {
-  final String name;
-  final String severity;
-
-  const Allergen(this.name, this.severity);
-}
-
 class _SettingsPage extends State<SettingsPage>
     with SingleTickerProviderStateMixin {
   UserSettingsCache userSettingsCache = UserSettingsCache.instance;
+  AllergenCache allergenCache = AllergenCache.instance;
   bool _showPlus = true;
 
   @override
@@ -46,17 +40,6 @@ class _SettingsPage extends State<SettingsPage>
 
   String searchQuery = '';
   String dropdownValue = '輕微';
-
-  final List<Allergen> allergens = [
-    Allergen('花生', '嚴重'),
-    Allergen('葡萄', '輕微'),
-  ];
-
-  List<Allergen> get filteredAllergens {
-    return allergens.where((allergen) {
-      return allergen.name.toLowerCase().contains(searchQuery.toLowerCase());
-    }).toList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +72,7 @@ class _SettingsPage extends State<SettingsPage>
                   ),
                   DropdownButton<String>(
                     value: dropdownValue,
-                    icon: Icon(Icons.arrow_drop_down),
+                    icon: const Icon(Icons.arrow_drop_down),
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
@@ -106,7 +89,9 @@ class _SettingsPage extends State<SettingsPage>
                   IconButton(
                     onPressed: () {
                       // 執行查詢
-                      addNewAllergen();
+                      setState(() {
+                        addNewAllergen();
+                      });
                     },
                     icon: const Icon(Icons.edit),
                   ),
@@ -118,6 +103,30 @@ class _SettingsPage extends State<SettingsPage>
       ),
       body: Stack(
         children: [
+          ListView.separated(
+            separatorBuilder: (context, index) => const Divider(thickness: 2),
+            itemCount: allergenCache.lst.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text(allergenCache.lst[index].name),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 50.0,
+                      child: Text(allergenCache.lst[index].allergyLevel)
+                      ),
+                    IconButton(icon: const Icon(Icons.delete_outline), onPressed: () {
+                      // delete
+                      setState(() {
+                        allergenCache.delete(allergenCache.lst[index]);
+                      });
+                    }),
+                  ],
+                ),
+              );
+            },
+          ),
           Positioned(
             bottom: 70.0, // Adjust the values as per your requirements
             right: 20.0,
@@ -224,7 +233,8 @@ class _SettingsPage extends State<SettingsPage>
   }
 
   Future<void> addNewAllergen() async {
-    UserAllergen userAllergen = UserAllergen(_textEditingController.text, dropdownValue);
+    UserAllergen userAllergen =
+        UserAllergen(_textEditingController.text, dropdownValue);
     AllergenCache.instance.upsert(userAllergen);
   }
 }

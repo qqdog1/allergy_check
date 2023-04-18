@@ -45,6 +45,12 @@ class AllergenCache {
     _write();
   }
 
+  void delete(UserAllergen userAllergen) async {
+    map.remove(userAllergen.name);
+    lst.remove(userAllergen);
+    _write();
+  }
+
   Future<void> _write() async {
     final directory = await getApplicationSupportDirectory();
     final file = File('${directory.path}/$fileName');
