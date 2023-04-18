@@ -13,3 +13,17 @@
 - [x] TextField and TextEditingController
 - [x] DropdownButton
 - [x] ListView
+
+
+
+
+
+### 可能有的功能
+#### 過敏原編輯及查詢
+* 新增過敏原並以List顯示在某個畫面
+* 在List中刪除過敏原
+* 當List過常會忘記自己有沒有過敏,所以上方會需要一個filter
+#### 餐點過敏原參考
+* 餐點中可能過敏原參考並列出使用者的嚴重程度
+#### 接觸日記
+* 飲食日記或吃藥日記或去哪裡吸廢氣日記或碰到什麼花
