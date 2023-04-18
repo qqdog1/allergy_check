@@ -7,7 +7,7 @@ class DiaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('搜尋過敏原'),
+        title: const Text('過敏人日誌'),
         actions: [
           IconButton(
             onPressed: () {
@@ -25,11 +25,7 @@ class DiaryPage extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        content: const Text('這裡可以設定已知過敏原，\n'
-            '複雜設定:\n'
-            '一次帶入APP預設200多項過敏原\n'
-            '簡易設定:\n'
-            '自行逐一新增過敏原'),
+        content: const Text('希望會是一個方便好用的功能'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

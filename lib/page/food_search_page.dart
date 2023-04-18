@@ -25,11 +25,7 @@ class FoodSearchPage extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        content: const Text('這裡可以設定已知過敏原，\n'
-            '複雜設定:\n'
-            '一次帶入APP預設200多項過敏原\n'
-            '簡易設定:\n'
-            '自行逐一新增過敏原'),
+        content: const Text('敬請期待'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
