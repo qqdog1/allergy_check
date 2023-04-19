@@ -66,6 +66,18 @@ class _SettingsPage extends State<SettingsPage>
                 children: [
                   Expanded(
                     child: TextField(
+                      decoration: InputDecoration(
+                        hintText: '搜尋或新增過敏原',
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              setState(() {
+                                _textEditingController.text = '';
+                                _query = '';
+                                filterList();
+                              });
+                            }),
+                      ),
                       controller: _textEditingController,
                       onChanged: (value) {
                         _query = value;
@@ -73,9 +85,6 @@ class _SettingsPage extends State<SettingsPage>
                           filterList();
                         });
                       },
-                      decoration: const InputDecoration(
-                        hintText: '搜尋或新增過敏原',
-                      ),
                     ),
                   ),
                   DropdownButton<String>(
@@ -96,13 +105,14 @@ class _SettingsPage extends State<SettingsPage>
                   ),
                   IconButton(
                     onPressed: () {
-                      // 執行查詢
                       setState(() {
                         addNewAllergen();
+                        _textEditingController.text = '';
+                        _query = '';
                         filterList();
                       });
                     },
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(Icons.add),
                   ),
                 ],
               ),
@@ -116,24 +126,35 @@ class _SettingsPage extends State<SettingsPage>
             separatorBuilder: (context, index) => const Divider(thickness: 2),
             itemCount: lstShowingAllergen.length,
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(lstShowingAllergen[index].name),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                        width: 50.0,
-                        child: Text(lstShowingAllergen[index].allergyLevel)),
-                    IconButton(
-                        icon: const Icon(Icons.delete_outline),
-                        onPressed: () {
-                          // delete
-                          setState(() {
-                            allergenCache.delete(lstShowingAllergen[index]);
-                            filterList();
-                          });
-                        }),
-                  ],
+              return Container(
+                color: lstShowingAllergen[index].allergyLevel == '輕微'
+                    ? Colors.lightGreen
+                    : lstShowingAllergen[index].allergyLevel == '中等'
+                        ? Colors.yellow
+                        : lstShowingAllergen[index].allergyLevel == '嚴重'
+                            ? Colors.orange
+                            : lstShowingAllergen[index].allergyLevel == '危險'
+                                ? Colors.red
+                                : Colors.white,
+                child: ListTile(
+                  title: Text(lstShowingAllergen[index].name),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                          width: 50.0,
+                          child: Text(lstShowingAllergen[index].allergyLevel)),
+                      IconButton(
+                          icon: const Icon(Icons.delete_outline),
+                          onPressed: () {
+                            // delete
+                            setState(() {
+                              allergenCache.delete(lstShowingAllergen[index]);
+                              filterList();
+                            });
+                          }),
+                    ],
+                  ),
                 ),
               );
             },
