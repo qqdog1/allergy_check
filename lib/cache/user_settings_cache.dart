@@ -6,7 +6,7 @@ import '../dto/user_settings.dart';
 
 class UserSettingsCache {
   static final UserSettingsCache instance = UserSettingsCache._internal();
-  UserSettings userSettings = UserSettings(false, false, false, false);
+  UserSettings userSettings = UserSettings(false, false, false);
   String fileName = 'settings.txt';
 
   factory UserSettingsCache() {
@@ -20,7 +20,7 @@ class UserSettingsCache {
     if (await file.exists()) {
       final content = await file.readAsString();
       Map<String, dynamic> jsonMap = jsonDecode(content);
-      userSettings = UserSettings(jsonMap['isConfigured'] ?? false, jsonMap['isSettingsPage'] ?? false, jsonMap['isFoodSearchPage'] ?? false, jsonMap['isFilterPage'] ?? false);
+      userSettings = UserSettings(jsonMap['isSettingsPage'] ?? false, jsonMap['isFoodSearchPage'] ?? false, jsonMap['isFilterPage'] ?? false);
     } else {
       _write();
     }
@@ -28,11 +28,6 @@ class UserSettingsCache {
 
   UserSettingsCache._internal() {
     _init();
-  }
-
-  void setConfigured(bool value) {
-    userSettings.isConfigured = value;
-    _write();
   }
 
   void setSettingsPage(bool value) {

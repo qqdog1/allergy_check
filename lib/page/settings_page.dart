@@ -1,4 +1,5 @@
 import 'package:allergy_check/dto/user_allergen.dart';
+import 'package:allergy_check/page/template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -23,17 +24,17 @@ class _SettingsPage extends State<SettingsPage>
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      initUserSettings();
+      _initUserSettings();
     });
     lstShowingAllergen = AllergenCache.instance.lst;
   }
 
-  Future<void> initUserSettings() async {
+  Future<void> _initUserSettings() async {
     UserSettings userSettings = userSettingsCache.userSettings;
 
     if (!userSettings.isSettingsPage) {
       userSettingsCache.setSettingsPage(true);
-      showQuestionPopup();
+      _showQuestionPopup();
     }
   }
 
@@ -51,7 +52,7 @@ class _SettingsPage extends State<SettingsPage>
         actions: [
           IconButton(
             onPressed: () {
-              showQuestionPopup();
+              _showQuestionPopup();
             },
             icon: const Icon(Icons.question_mark_sharp),
           ),
@@ -74,7 +75,7 @@ class _SettingsPage extends State<SettingsPage>
                               setState(() {
                                 _textEditingController.text = '';
                                 _query = '';
-                                filterList();
+                                _filterList();
                               });
                             }),
                       ),
@@ -82,7 +83,7 @@ class _SettingsPage extends State<SettingsPage>
                       onChanged: (value) {
                         _query = value;
                         setState(() {
-                          filterList();
+                          _filterList();
                         });
                       },
                     ),
@@ -106,10 +107,10 @@ class _SettingsPage extends State<SettingsPage>
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        addNewAllergen();
+                        _addNewAllergen();
                         _textEditingController.text = '';
                         _query = '';
-                        filterList();
+                        _filterList();
                       });
                     },
                     icon: const Icon(Icons.add),
@@ -150,7 +151,7 @@ class _SettingsPage extends State<SettingsPage>
                             // delete
                             setState(() {
                               allergenCache.delete(lstShowingAllergen[index]);
-                              filterList();
+                              _filterList();
                             });
                           }),
                     ],
@@ -169,6 +170,7 @@ class _SettingsPage extends State<SettingsPage>
                   setState(() {
                     _showPlus = true;
                   });
+                  _showTemplateNotice();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -191,7 +193,7 @@ class _SettingsPage extends State<SettingsPage>
                   });
                   // 如果有資料跳confirm
                   // 沒資料當他沒按
-                  showDeleteConfirm();
+                  _showDeleteConfirm();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -222,14 +224,14 @@ class _SettingsPage extends State<SettingsPage>
     );
   }
 
-  Future<void> showQuestionPopup() {
+  Future<void> _showQuestionPopup() {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         content: const Text('這裡可以設定已知過敏原，\n'
             '可使用套用模板，\n'
-            '一次設定APP內建200多項過敏原，\n'
+            '一次設定APP內建241項過敏原，\n'
             '或自行逐一新增過敏原。'),
         actions: [
           TextButton(
@@ -243,7 +245,7 @@ class _SettingsPage extends State<SettingsPage>
     );
   }
 
-  Future<void> showDeleteConfirm() {
+  Future<void> _showDeleteConfirm() {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -255,7 +257,7 @@ class _SettingsPage extends State<SettingsPage>
               setState(() {
                 Navigator.pop(context);
                 allergenCache.clearAll();
-                filterList();
+                _filterList();
               });
             },
             child: const Text('確定'),
@@ -272,13 +274,46 @@ class _SettingsPage extends State<SettingsPage>
     );
   }
 
-  Future<void> addNewAllergen() async {
+  Future<void> _showTemplateNotice() {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        content: const Text('一次設定241項過敏原\n'
+            '這將會花你一些時間\n'
+            '沒全部設定完不會儲存'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TemplatePage()),
+                );
+              });
+            },
+            child: const Text('確定'),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red, // 設置文字顏色
+            ),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('取消'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _addNewAllergen() async {
     UserAllergen userAllergen =
         UserAllergen(_textEditingController.text, dropdownValue);
     AllergenCache.instance.upsert(userAllergen);
   }
 
-  Future<void> filterList() async {
+  Future<void> _filterList() async {
     lstShowingAllergen = [];
     for (UserAllergen userAllergen in AllergenCache.instance.lst) {
       if (userAllergen.name.contains(_query)) {

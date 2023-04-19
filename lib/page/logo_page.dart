@@ -41,7 +41,7 @@ class _LogoPageState extends State<LogoPage> {
       onTap: () {
         if (_canNavigate) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const TabPage()));
+              context, MaterialPageRoute(builder: (context) => TabPage(index: 0,)));
         }
       },
       behavior: HitTestBehavior.opaque,
@@ -55,7 +55,7 @@ class _LogoPageState extends State<LogoPage> {
             );
           } else {
             // 延迟结束后，开始显示页面内容
-            return const TabPage();
+            return TabPage(index: 0,);
           }
         },
       ),

@@ -7,14 +7,18 @@ import 'diary_page.dart';
 import 'food_search_page.dart';
 
 class TabPage extends StatefulWidget {
-  const TabPage({super.key});
+  int index;
+  TabPage({super.key, required this.index});
+  TabPage.someOtherConstructor({super.key}) : index = 0;
 
   @override
-  _TabPage createState() => _TabPage();
+  _TabPage createState() => _TabPage(index);
 }
 
 class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+
+  _TabPage(this._currentIndex);
 
   @override
   void initState() {
@@ -25,12 +29,6 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
   Future<void> initUserSettings() async {
     WidgetsFlutterBinding.ensureInitialized();
     UserSettings userSettings = UserSettingsCache.instance.userSettings;
-
-    setState(() {
-      if (!userSettings.isConfigured) {
-        _currentIndex = 2;
-      }
-    });
   }
 
   final List<Widget> _pages = [

@@ -35,13 +35,23 @@ class AllergenCache {
   }
 
   void upsert(UserAllergen userAllergen) async {
+    _upsert(userAllergen);
+    _write();
+  }
+
+  void _upsert(UserAllergen userAllergen) async {
     if (map.containsKey(userAllergen.name)) {
       map[userAllergen.name]?.allergyLevel = userAllergen.allergyLevel;
     } else {
       lst.add(userAllergen);
       map.putIfAbsent(userAllergen.name, () => userAllergen);
     }
+  }
 
+  void upsertAll(List<UserAllergen> data) {
+    for (UserAllergen userAllergen in data) {
+      _upsert(userAllergen);
+    }
     _write();
   }
 
