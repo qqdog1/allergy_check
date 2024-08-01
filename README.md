@@ -15,6 +15,9 @@
 - [x] TextField and TextEditingController
 - [x] DropdownButton
 - [x] ListView
+- [ ] backend
+- [ ] get menu list version
+- [ ] update menu list is version not match
 - [ ] 模板新增
 - [ ] 放廣告
 - [ ] 上架

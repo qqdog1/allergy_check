@@ -34,7 +34,7 @@ class _SettingsPage extends State<SettingsPage>
 
     if (!userSettings.isSettingsPage) {
       userSettingsCache.setSettingsPage(true);
-      _showQuestionPopup();
+      // _showQuestionPopup();
     }
   }
 

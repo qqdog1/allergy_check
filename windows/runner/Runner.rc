@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
+            VALUE "CompanyName", "name.qd" "\0"
             VALUE "FileDescription", "allergy_check" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "allergy_check" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 name.qd`. All rights reserved." "\0"
             VALUE "OriginalFilename", "allergy_check.exe" "\0"
             VALUE "ProductName", "allergy_check" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

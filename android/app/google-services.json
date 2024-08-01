@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367355630615",
+    "project_id": "allergy-check-aab1e",
+    "storage_bucket": "allergy-check-aab1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367355630615:android:49a090e6a400d986c27852",
+        "android_client_info": {
+          "package_name": "name.qd.allergy_check"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoRF7ZcdIogcCbnkdvTM8zUq0SqXCemZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

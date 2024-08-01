@@ -8,7 +8,7 @@
 PRODUCT_NAME = allergy_check
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.allergyCheck
+PRODUCT_BUNDLE_IDENTIFIER = name.qd.allergyCheck
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 name.qd. All rights reserved.
